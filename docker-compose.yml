@@ -1,0 +1,32 @@
+version: '3'
+services:
+  kitchen:
+    container_name: kitchen
+    build:
+      dockerfile: Dockerfile
+      context: ./kitchen
+    image: robinpas/kitchen:v0.0.1
+    ports:
+      - "8000:8000"
+    restart: always
+
+  inventory:
+    container_name: inventory
+    build:
+      dockerfile: Dockerfile
+      context: ./inventory
+    image: robinpas/inventory:v0.0.1
+    ports:
+      - "8001:8001"
+    restart: always
+
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    depends_on:
+      - kitchen
+      - inventory
+    image: robinpas/nginx:v0.0.1
+    ports:
+      - "80:80"
