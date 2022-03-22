@@ -26,7 +26,7 @@ class KitchenService {
       console.log(formatData(ingredientsResult));
       return formatData(ingredientsResult);
     } catch (error) {
-      console.log("Service Error");
+      console.log(error);
     }
   }
 
@@ -78,6 +78,22 @@ class KitchenService {
       return formatData(order);
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async subscribeEvents(payload) {
+    const { event, data } = payload;
+    const { recipeId, required_qt, ingredient, orderId } = data;
+
+    switch (event) {
+      case "ADD_INGREDIENT_TO_RECIPE":
+        this.addIngredient(recipeId, required_qt, ingredient);
+        break;
+      case "DISPATCH_ORDER":
+        this.dispatchOrder(orderId);
+        break;
+      default:
+        break;
     }
   }
 }

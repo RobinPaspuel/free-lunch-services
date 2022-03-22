@@ -1,0 +1,74 @@
+{
+  "order": {
+    "serves_number": 3,
+    "status": "received",
+    "recipes": [
+      {
+        "_id": "62391e569c7bd4173545f179",
+        "name": "tomato",
+        "used_times": 0,
+        "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg",
+        "ingredients": [
+          {
+            "ingredient": {
+              "_id": "623a2f840f3c5ba361a85e71",
+              "name": "tomato",
+              "existence": 5,
+              "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg"
+            },
+            "required_qt": 4,
+            "_id": "6239327c466549d009f5d6ed"
+          },
+          {
+            "ingredient": {
+              "_id": "623a2fce0f3c5ba361a85e73",
+              "name": "lemon",
+              "existence": 5,
+              "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg"
+            },
+            "required_qt": 2,
+            "_id": "6239ca9df0521fe21c2a5697"
+          }
+        ],
+        "createdAt": "2022-03-22T00:54:46.072Z",
+        "updatedAt": "2022-03-22T13:09:49.670Z",
+        "__v": 4
+      },
+      {
+        "_id": "62391e569c7bd4173545f179",
+        "name": "tomato",
+        "used_times": 0,
+        "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg",
+        "ingredients": [
+          {
+            "ingredient": {
+              "_id": "623a2f840f3c5ba361a85e71",
+              "name": "tomato",
+              "existence": 5,
+              "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg"
+            },
+            "required_qt": 4,
+            "_id": "6239327c466549d009f5d6ed"
+          },
+          {
+            "ingredient": {
+              "_id": "623a2fce0f3c5ba361a85e73",
+              "name": "lemon",
+              "existence": 5,
+              "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg"
+            },
+            "required_qt": 2,
+            "_id": "6239ca9df0521fe21c2a5697"
+          }
+        ],
+        "createdAt": "2022-03-22T00:54:46.072Z",
+        "updatedAt": "2022-03-22T13:09:49.670Z",
+        "__v": 4
+      }
+    ],
+    "_id": "623a2e14b7b76e0afd4ec4f3",
+    "createdAt": "2022-03-22T20:14:12.411Z",
+    "updatedAt": "2022-03-22T20:14:12.411Z",
+    "__v": 0
+  }
+}

@@ -10,7 +10,7 @@ const OrderSchema = new Schema(
       enum: ["received", "dispatched"],
       default: "received",
     },
-    recipes: [{ type: Schema.Types.ObjectId, ref: "recipe", required: true }],
+    recipes: [{ type: Schema.Types.ObjectId, ref: "recipe", required: true}],
   },
   {
     timestamps: true,
