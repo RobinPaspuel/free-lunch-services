@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "NODE_ENV=dev nodemon ./src/server.js",
+    "prod": "NODE_ENV=prod nodemon ./src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.3"
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "moongose": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
