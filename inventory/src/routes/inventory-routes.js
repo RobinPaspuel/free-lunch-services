@@ -26,21 +26,14 @@ module.exports = (app, channel) => {
     }
   });
 
-  // app.get("/purchases", async (req, res, next) => {
-  //   try {
-  //     const orderId = req.params.orderId;
-  //     console.log(orderId);
-  //     const payload = await service.getOrderPayload(
-  //       { orderId },
-  //       "DISPATCH_ORDER"
-  //     );
-  //     console.log(payload);
-  //     publishMessage(channel, KITCHEN_BINDING_KEY, JSON.stringify(payload));
-  //     res.json({ message: `Order ${orderId} dispatched!` });
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // });
+  app.get("/purchases", async (req, res, next) => {
+    try {
+      const { data } = await service.getPurchases();
+      res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
 
   app.put("/ingredients", async (req, res, next) => {
     try {

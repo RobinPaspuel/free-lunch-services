@@ -31,6 +31,14 @@ class InventoryRepository {
     }
   }
 
+  async getPurchases() {
+    try {
+      return await PurchaseModel.find().populate('product')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async incrementProductExistence(productId, existence) {
     try {
       return await ProductModel.findByIdAndUpdate(productId, {
@@ -53,9 +61,10 @@ class InventoryRepository {
     }
   }
 
-  async createPurchase({ product, quantitySold }) {
+  async createPurchase({ product, quantitySold, orderId }) {
     try {
       const purchase = new PurchaseModel({
+        orderId,
         product,
         quantitySold,
       });

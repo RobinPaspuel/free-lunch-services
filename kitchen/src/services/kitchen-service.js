@@ -62,9 +62,9 @@ class KitchenService {
     }
   }
 
-  async getOrders() {
+  async getOrders(received, dispatched) {
     try {
-      const orders = await this.repository.getOrders();
+      const orders = await this.repository.getOrders(received, dispatched);
       return formatData(orders);
     } catch (error) {
       console.log(error);
@@ -73,8 +73,8 @@ class KitchenService {
 
   async dispatchOrder(orderId) {
     try {
-      const order = await this.repository.dispatchOrder(orderId);
-      return formatData({message: `Order ${orderId} dispatched`});
+      await this.repository.dispatchOrder(orderId);
+      return formatData({ message: `Order ${orderId} dispatched` });
     } catch (error) {
       console.log(error);
     }

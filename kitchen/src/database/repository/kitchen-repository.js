@@ -23,7 +23,11 @@ class KitchenRepository {
     }
   }
 
-  async insertIngredient(recipeId, required_qt, { _id, name, existence, image }) {
+  async insertIngredient(
+    recipeId,
+    required_qt,
+    { _id, name, existence, image }
+  ) {
     const ingredient = {
       ingredient: { _id, name, existence, image },
       required_qt,
@@ -76,9 +80,15 @@ class KitchenRepository {
     }
   }
 
-  async getOrders() {
+  async getOrders(received, dispatched) {
     try {
-      return await OrderModel.find();
+      if (received && !dispatched) {
+        return await OrderModel.find({ status: "received" }).populate('recipes').exec();
+      } else if (dispatched && !received) {
+        return await OrderModel.find({ status: "received" }).populate('recipes').exec();
+      } else {
+        return await OrderModel.find().populate('recipes').exec();
+      }
     } catch (error) {
       console.log(error);
     }

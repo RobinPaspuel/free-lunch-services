@@ -30,6 +30,15 @@ class InventoryService {
     }
   }
 
+  async getPurchases() {
+    try {
+      const purchases = await this.repository.getPurchases();
+      return formatData(purchases);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async incrementExistence(productId, existence) {
     try {
       const productResult = await this.repository.incrementProductExistence(
@@ -71,11 +80,12 @@ class InventoryService {
     }
   }
 
-  async registerBuy(product, quantitySold) {
+  async registerBuy(product, quantitySold, orderId) {
     try {
       const register = await this.repository.createPurchase({
         product,
         quantitySold: quantitySold.quantitySold,
+        orderId,
       });
       return register;
     } catch (error) {
@@ -83,13 +93,15 @@ class InventoryService {
     }
   }
 
-  async buyOrNot(product) {
+  async buyOrNot(product, orderId) {
     const productInventory = await this.repository.getProductById(
       product.ingredient._id
     );
     if (productInventory.existence <= product.required_qt) {
       const quantitySold = await this.buyProduct(productInventory._id);
-      await this.registerBuy(productInventory, quantitySold);
+      if (quantitySold.quantitySold > 0) {
+        await this.registerBuy(productInventory, quantitySold, orderId);
+      }
       await this.incrementExistence(
         productInventory,
         quantitySold.quantitySold
@@ -106,12 +118,12 @@ class InventoryService {
     }
   }
 
-  async placeOrder(products) {
+  async placeOrder(products, orderId) {
     const productsFlatten = products.flat();
 
     await Promise.all(
       productsFlatten.map(async (product) => {
-        return await this.buyOrNot(product);
+        return await this.buyOrNot(product, orderId);
       })
     );
   }
@@ -120,8 +132,7 @@ class InventoryService {
     const recipes = order.recipes.map((recipe) => {
       return recipe.ingredients;
     });
-    await this.placeOrder(recipes);
-    console.log(order._id);
+    await this.placeOrder(recipes, order._id);
     const orderResult = await axios.put(
       "http://localhost:8000/orders",
       {},

@@ -39,7 +39,8 @@ module.exports = (app, channel) => {
 
   app.get("/orders", async (req, res, next) => {
     try {
-      const { data } = await service.getOrders();
+      const { received, dispatched } = req.query
+      const { data } = await service.getOrders(!!received, !!dispatched);
       return res.json(data);
     } catch (error) {
       next(error);
