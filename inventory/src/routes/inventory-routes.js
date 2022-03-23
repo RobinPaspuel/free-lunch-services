@@ -1,8 +1,11 @@
 const { aggregate } = require("../database/models/Product");
 const InventoryService = require("../services/inventory-service");
+const { publishMessage, subscribeMessage } = require("../utils");
+const { KITCHEN_BINDING_KEY } = require("../config");
 
-module.exports = (app) => {
+module.exports = (app, channel) => {
   const service = new InventoryService();
+  subscribeMessage(channel, service);
 
   app.post("/products", async (req, res, next) => {
     try {
@@ -23,11 +26,31 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/purchases", async (req, res, next) => {
+  // app.get("/purchases", async (req, res, next) => {
+  //   try {
+  //     const orderId = req.params.orderId;
+  //     console.log(orderId);
+  //     const payload = await service.getOrderPayload(
+  //       { orderId },
+  //       "DISPATCH_ORDER"
+  //     );
+  //     console.log(payload);
+  //     publishMessage(channel, KITCHEN_BINDING_KEY, JSON.stringify(payload));
+  //     res.json({ message: `Order ${orderId} dispatched!` });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // });
+
+  app.put("/ingredients", async (req, res, next) => {
     try {
-      const { order } = req.body;
-      const { data } = await service.manageOrder(order);
-      res.json(data);
+      const { recipeId, required_qt, productId } = req.query;
+      const { data } = await service.getProductPayload(
+        { recipeId, required_qt, productId },
+        "ADD_INGREDIENT_TO_RECIPE"
+      );
+      publishMessage(channel, KITCHEN_BINDING_KEY, JSON.stringify(data));
+      res.json(data.data.product);
     } catch (error) {
       next(error);
     }

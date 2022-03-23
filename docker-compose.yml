@@ -1,6 +1,5 @@
 version: '3'
 services:
-
   mongodb:
     container_name: mongodb
     image: mongo
@@ -10,6 +9,18 @@ services:
     volumes:
       - ./db/:/data/db
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    # volumes:
+    #     - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+    #     - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    # networks:
+    #     - rabbitmq_go_net
+
   kitchen:
     container_name: kitchen
     build:
@@ -18,7 +29,7 @@ services:
     image: robinpas/kitchen:v0.0.1
     ports:
       - "8000:8000"
-    depends_on: 
+    depends_on:
       - mongodb
     restart: always
 
@@ -30,7 +41,7 @@ services:
     image: robinpas/inventory:v0.0.1
     ports:
       - "8001:8001"
-    depends_on: 
+    depends_on:
       - mongodb
     restart: always
 
@@ -44,3 +55,7 @@ services:
     image: robinpas/nginx:v0.0.1
     ports:
       - "80:80"
+
+# networks:
+#   free-luch:
+#     driver: bridge

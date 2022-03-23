@@ -114,22 +114,69 @@ class InventoryService {
         return await this.buyOrNot(product);
       })
     );
-    return { message: "Order Processed!" };
   }
 
   async manageOrder(order) {
     const recipes = order.recipes.map((recipe) => {
       return recipe.ingredients;
     });
-    const orderResult = await this.placeOrder(recipes);
-
-    return formatData(orderResult);
+    await this.placeOrder(recipes);
+    console.log(order._id);
+    const orderResult = await axios.put(
+      "http://localhost:8000/orders",
+      {},
+      {
+        params: {
+          orderId: order._id,
+        },
+      }
+    );
+    console.log(orderResult.data);
+    return formatData(orderResult.data);
   }
 
-  async addPurchase() {
-    const productsArray = await this.repository.getProducts();
-    console.log(productsArray);
-    return formatData(productsArray);
+  async getProductPayload({ recipeId, required_qt, productId }, event) {
+    const product = await this.repository.getProductById(productId);
+    if (product) {
+      const payload = {
+        event: event,
+        data: {
+          recipeId,
+          product,
+          required_qt,
+        },
+      };
+      return formatData(payload);
+    } else {
+      return formatData({ error: "Product not available" });
+    }
+  }
+
+  async getOrderPayload({ orderId }, event) {
+    if (orderId) {
+      const payload = {
+        event,
+        data: {
+          orderId,
+        },
+      };
+      return payload;
+    } else {
+      return formatData({ error: "No order to dispatch" });
+    }
+  }
+
+  async subscribeEvents(payload) {
+    const { event, data } = JSON.parse(payload);
+    const { order } = data;
+
+    switch (event) {
+      case "ADD_NEW_ORDER":
+        this.manageOrder(order);
+        break;
+      default:
+        break;
+    }
   }
 }
 

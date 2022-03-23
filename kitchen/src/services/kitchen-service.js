@@ -23,7 +23,6 @@ class KitchenService {
         required_qt,
         ingredient
       );
-      console.log(formatData(ingredientsResult));
       return formatData(ingredientsResult);
     } catch (error) {
       console.log(error);
@@ -75,19 +74,32 @@ class KitchenService {
   async dispatchOrder(orderId) {
     try {
       const order = await this.repository.dispatchOrder(orderId);
-      return formatData(order);
+      return formatData({message: `Order ${orderId} dispatched`});
     } catch (error) {
       console.log(error);
     }
   }
 
+  async getOrderPayload(order, event) {
+    if (order) {
+      const payload = {
+        event,
+        data: { order },
+      };
+      return payload;
+    } else {
+      return formatData({ error: "No Order Data" });
+    }
+  }
+
   async subscribeEvents(payload) {
+    payload = JSON.parse(payload);
     const { event, data } = payload;
-    const { recipeId, required_qt, ingredient, orderId } = data;
+    const { recipeId, required_qt, product, orderId } = data;
 
     switch (event) {
       case "ADD_INGREDIENT_TO_RECIPE":
-        this.addIngredient(recipeId, required_qt, ingredient);
+        this.addIngredient(recipeId, required_qt, product);
         break;
       case "DISPATCH_ORDER":
         this.dispatchOrder(orderId);

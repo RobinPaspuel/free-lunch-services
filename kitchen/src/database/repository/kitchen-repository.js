@@ -23,9 +23,9 @@ class KitchenRepository {
     }
   }
 
-  async insertIngredient(recipeId, required_qt, { _id, name, image }) {
+  async insertIngredient(recipeId, required_qt, { _id, name, existence, image }) {
     const ingredient = {
-      ingredient: { _id, name, image },
+      ingredient: { _id, name, existence, image },
       required_qt,
     };
     try {

@@ -1,28 +1,16 @@
 const KitchenService = require("../services/kitchen-service");
+const { publishMessage, subscribeMessage } = require("../utils");
+const { INVENTORY_BINDING_KEY } = require("../config");
 
-module.exports = (app) => {
+module.exports = (app, channel) => {
   const service = new KitchenService();
+  subscribeMessage(channel, service);
 
   app.post("/recipes", async (req, res, next) => {
     try {
       const { name, image } = req.body;
       const { data } = await service.AddRecipe({ name, image });
       return res.json(data);
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  app.put("/ingredients", async (req, res, next) => {
-    try {
-      const { recipeId, required_qt } = req.query;
-      const ingredient = req.body;
-      const { data } = await service.addIngredient(
-        recipeId,
-        required_qt,
-        ingredient
-      );
-      return res.json(ingredient);
     } catch (error) {
       next(error);
     }
@@ -41,6 +29,8 @@ module.exports = (app) => {
     try {
       const { serves_number } = req.query;
       const { data } = await service.addOrder(serves_number);
+      const payload = await service.getOrderPayload(data, "ADD_NEW_ORDER");
+      publishMessage(channel, INVENTORY_BINDING_KEY, JSON.stringify(payload));
       return res.json(data);
     } catch (error) {
       next(error);
