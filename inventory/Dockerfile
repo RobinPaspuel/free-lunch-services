@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8001
 
-CMD ["node", "./src/server.js"]
+CMD ["npm", "run", "start"]

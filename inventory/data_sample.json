@@ -1,74 +1,44 @@
 {
-  "order": {
-    "serves_number": 3,
-    "status": "received",
-    "recipes": [
-      {
-        "_id": "62391e569c7bd4173545f179",
-        "name": "tomato",
-        "used_times": 0,
-        "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg",
-        "ingredients": [
-          {
-            "ingredient": {
-              "_id": "623a2f840f3c5ba361a85e71",
-              "name": "tomato",
-              "existence": 5,
-              "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg"
-            },
-            "required_qt": 4,
-            "_id": "6239327c466549d009f5d6ed"
-          },
-          {
-            "ingredient": {
-              "_id": "623a2fce0f3c5ba361a85e73",
-              "name": "lemon",
-              "existence": 5,
-              "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg"
-            },
-            "required_qt": 2,
-            "_id": "6239ca9df0521fe21c2a5697"
-          }
-        ],
-        "createdAt": "2022-03-22T00:54:46.072Z",
-        "updatedAt": "2022-03-22T13:09:49.670Z",
-        "__v": 4
-      },
-      {
-        "_id": "62391e569c7bd4173545f179",
-        "name": "tomato",
-        "used_times": 0,
-        "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg",
-        "ingredients": [
-          {
-            "ingredient": {
-              "_id": "623a2f840f3c5ba361a85e71",
-              "name": "tomato",
-              "existence": 5,
-              "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg"
-            },
-            "required_qt": 4,
-            "_id": "6239327c466549d009f5d6ed"
-          },
-          {
-            "ingredient": {
-              "_id": "623a2fce0f3c5ba361a85e73",
-              "name": "lemon",
-              "existence": 5,
-              "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg"
-            },
-            "required_qt": 2,
-            "_id": "6239ca9df0521fe21c2a5697"
-          }
-        ],
-        "createdAt": "2022-03-22T00:54:46.072Z",
-        "updatedAt": "2022-03-22T13:09:49.670Z",
-        "__v": 4
-      }
-    ],
-    "_id": "623a2e14b7b76e0afd4ec4f3",
-    "createdAt": "2022-03-22T20:14:12.411Z",
-    "updatedAt": "2022-03-22T20:14:12.411Z",
-    "__v": 0
-  }
+  "ingredients": [
+    {
+      "name": "tomato",
+      "image": "https://www.collinsdictionary.com/images/full/tomato_281240360.jpg"
+    },
+    {
+      "name": "lemon",
+      "image": "https://thumbs.dreamstime.com/b/fresh-lemon-isolated-white-background-38607016.jpg"
+    },
+    {
+      "name": "potato",
+      "image": "https://www.collinsdictionary.com/images/full/potato_113134582.jpg"
+    },
+    {
+      "name": "rice",
+      "image": "https://thumbs.dreamstime.com/b/rice-grain-22274736.jpg"
+    },
+    {
+      "name": "ketchup",
+      "image": "https://sugarfreelondoner.com/wp-content/uploads/2020/06/sugar-free-ketchup-1200.jpg"
+    },
+    {
+      "name": "lettuce",
+      "image": "https://www.publicdomainpictures.net/pictures/20000/nahled/lettuce.jpg"
+    },
+    {
+      "name": "onion",
+      "image": "https://thumbs.dreamstime.com/b/red-onion-25289022.jpg"
+    },
+    {
+      "name": "cheese",
+      "image": "https://thumbs.dreamstime.com/b/cheese-various-types-parts-cuts-sale-32016010.jpg"
+    },
+    {
+      "name": "meat",
+      "image": "https://images.freeimages.com/images/small-previews/e05/meat-1474534.jpg"
+    },
+    {
+      "name": "chicken",
+      "image": "https://previews.123rf.com/images/nitr/nitr1804/nitr180400059/99409141-frisches-h%C3%BChnerfleisch-auf-holzbrett.jpg"
+    }
+  ]
 }

@@ -16,10 +16,10 @@ class KitchenService {
     }
   }
 
-  async addIngredient(recipeId, required_qt, ingredient) {
+  async addIngredient(recipeName, required_qt, ingredient) {
     try {
       const ingredientsResult = await this.repository.insertIngredient(
-        recipeId,
+        recipeName,
         required_qt,
         ingredient
       );
@@ -95,11 +95,11 @@ class KitchenService {
   async subscribeEvents(payload) {
     payload = JSON.parse(payload);
     const { event, data } = payload;
-    const { recipeId, required_qt, product, orderId } = data;
+    const { recipeName, required_qt, product, orderId } = data;
 
     switch (event) {
       case "ADD_INGREDIENT_TO_RECIPE":
-        this.addIngredient(recipeId, required_qt, product);
+        this.addIngredient(recipeName, required_qt, product);
         break;
       case "DISPATCH_ORDER":
         this.dispatchOrder(orderId);

@@ -134,7 +134,7 @@ class InventoryService {
     });
     await this.placeOrder(recipes, order._id);
     const orderResult = await axios.put(
-      "http://localhost:8000/orders",
+      "http://nginx/kitchen/orders",
       {},
       {
         params: {
@@ -146,13 +146,13 @@ class InventoryService {
     return formatData(orderResult.data);
   }
 
-  async getProductPayload({ recipeId, required_qt, productId }, event) {
-    const product = await this.repository.getProductById(productId);
+  async getProductPayload({ recipeName, required_qt, productName }, event) {
+    const product = await this.repository.getProductByName(productName);
     if (product) {
       const payload = {
         event: event,
         data: {
-          recipeId,
+          recipeName,
           product,
           required_qt,
         },

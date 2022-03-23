@@ -24,7 +24,7 @@ class KitchenRepository {
   }
 
   async insertIngredient(
-    recipeId,
+    recipeName,
     required_qt,
     { _id, name, existence, image }
   ) {
@@ -33,9 +33,9 @@ class KitchenRepository {
       required_qt,
     };
     try {
-      const recipe = await RecipeModel.findById(recipeId).populate(
+      const recipe = await RecipeModel.findOne({ name: recipeName}).populate(
         "ingredients"
-      );
+      ).exec();
       if (recipe) {
         let ingredients = recipe.ingredients;
         if (ingredients.length > 0) {
@@ -85,7 +85,7 @@ class KitchenRepository {
       if (received && !dispatched) {
         return await OrderModel.find({ status: "received" }).populate('recipes').exec();
       } else if (dispatched && !received) {
-        return await OrderModel.find({ status: "received" }).populate('recipes').exec();
+        return await OrderModel.find({ status: "dispatched" }).populate('recipes').exec();
       } else {
         return await OrderModel.find().populate('recipes').exec();
       }

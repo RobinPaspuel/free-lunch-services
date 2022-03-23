@@ -1,0 +1,28 @@
+{
+  "recipes": [
+    {
+      "name": "pizza",
+      "image": "https://thumbs.dreamstime.com/b/pizza-pepperoni-cheese-salami-vegetables-58914487.jpg"
+    },
+    {
+      "name": "french fries",
+      "image": "https://www.seriouseats.com/thmb/_BkW9V2wK3Zed-zQAETkRSJS8ac=/1500x1125/filters:fill(auto,1)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2018__04__20180309-french-fries-vicky-wasik-15-5a9844742c2446c7a7be9fbd41b6e27d.jpg"
+    },
+    {
+      "name": "cesar salad",
+      "image": "https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/b89f8de9-0f93-4976-b318-9ab04db353bc/Derivates/d3a08a3c-abb2-452e-9121-168f67c992c8.jpg"
+    },
+    {
+      "name": "beef milanese",
+      "image": "https://www.muydelish.com/wp-content/uploads/2021/01/Milanesas-500x375.jpg"
+    },
+    {
+      "name": "lasagna",
+      "image": "https://thumbs.dreamstime.com/b/lasagna-5660129.jpg"
+    },
+    {
+      "name": "burger",
+      "image": "https://i.pinimg.com/736x/e8/07/78/e80778973fd91d65093b6a97038a3b70.jpg"
+    }
+  ]
+}

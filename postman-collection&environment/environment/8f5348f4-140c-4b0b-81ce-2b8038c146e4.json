@@ -1,0 +1,1 @@
+{"id":"8f5348f4-140c-4b0b-81ce-2b8038c146e4","name":"Free-Luch App","values":[{"key":"BASE_URL_KITCHEN","value":"http://localhost/kitchen","enabled":true,"type":"default"},{"key":"BASE_URL_INVENTORY","value":"http://localhost/inventory","enabled":true,"type":"default"}]}

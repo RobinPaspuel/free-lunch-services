@@ -23,6 +23,14 @@ class InventoryRepository {
     }
   }
 
+  async getProductByName(productName) {
+    try {
+      return await ProductModel.findOne({ name: productName }).exec();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async getProductById(productId) {
     try {
       return await ProductModel.findById(productId);
@@ -33,9 +41,9 @@ class InventoryRepository {
 
   async getPurchases() {
     try {
-      return await PurchaseModel.find().populate('product')
+      return await PurchaseModel.find().populate("product");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 

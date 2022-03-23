@@ -13,24 +13,25 @@ services:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
     ports:
-        - 5672:5672
-        - 15672:15672
-    # volumes:
-    #     - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-    #     - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    # networks:
-    #     - rabbitmq_go_net
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:15672" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   kitchen:
     container_name: kitchen
     build:
       dockerfile: Dockerfile
       context: ./kitchen
-    image: robinpas/kitchen:v0.0.1
+    # image: robinpas/kitchen:v0.0.1
     ports:
-      - "8000:8000"
+      - 8000:8000
     depends_on:
       - mongodb
+      - rabbitmq
     restart: always
 
   inventory:
@@ -38,11 +39,12 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./inventory
-    image: robinpas/inventory:v0.0.1
+    # image: robinpas/inventory:v0.0.1
     ports:
-      - "8001:8001"
+      - 8001:8001
     depends_on:
       - mongodb
+      - rabbitmq
     restart: always
 
   nginx:
@@ -52,10 +54,9 @@ services:
     depends_on:
       - kitchen
       - inventory
-    image: robinpas/nginx:v0.0.1
+    links:
+      - "kitchen"
+      - "inventory"
+    # image: robinpas/nginx:v0.0.1
     ports:
-      - "80:80"
-
-# networks:
-#   free-luch:
-#     driver: bridge
+      - 80:80

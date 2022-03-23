@@ -37,9 +37,9 @@ module.exports = (app, channel) => {
 
   app.put("/ingredients", async (req, res, next) => {
     try {
-      const { recipeId, required_qt, productId } = req.query;
+      const { recipeName, required_qt, productName } = req.body;
       const { data } = await service.getProductPayload(
-        { recipeId, required_qt, productId },
+        { recipeName, required_qt, productName },
         "ADD_INGREDIENT_TO_RECIPE"
       );
       publishMessage(channel, KITCHEN_BINDING_KEY, JSON.stringify(data));
