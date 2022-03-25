@@ -1,6 +1,9 @@
 const dotenv = require("dotenv");
 
-if (process.env.NODE_ENV !== "prod") {
+if (process.env.NODE_ENV === "dev") {
+  const configFile = `./.env.${process.env.NODE_ENV}`;
+  dotenv.config({ path: configFile });
+} else if (process.env.NODE_ENV === "test") {
   const configFile = `./.env.${process.env.NODE_ENV}`;
   dotenv.config({ path: configFile });
 } else {
@@ -14,5 +17,5 @@ module.exports = {
   EXCHANGE_NAME: "FREE_LUNCH",
   KITCHEN_BINDING_KEY: "KITCHEN_SERVICE",
   INVENTORY_BINDING_KEY: "INVENTORY_SERVICE",
-  QUEUE_NAME: 'INVENTORY_QUEUE'
+  QUEUE_NAME: "INVENTORY_QUEUE",
 };

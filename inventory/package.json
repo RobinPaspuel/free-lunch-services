@@ -2,16 +2,25 @@
   "name": "service2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/server.js",
   "scripts": {
     "dev": "NODE_ENV=dev nodemon ./src/server.js",
-    "start": "NODE_ENV=dev node ./src/server.js"
+    "start": "NODE_ENV=dev node ./src/server.js",
+    "start:testdb": "cd .. && docker-compose up -d mongodb rabbitmq",
+    "stop:testdb": "docker-compose kill mongodb rabbitmq",
+    "pretest:e2e": "npm run start:testdb && sleep 10",
+    "test:e2e": "NODE_ENV=test jest --detectOpenHandles",
+    "posttest:e2e": "npm run stop:testdb"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "jest": "^27.5.1",
+    "jest-cli": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "pactum": "^3.1.4",
+    "supertest": "^6.2.2"
   },
   "dependencies": {
     "amqplib": "^0.8.0",
@@ -20,5 +29,12 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "moongose": "^1.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "globalTeardown": "<rootDir>/test-teardown-globals.js"
   }
 }
