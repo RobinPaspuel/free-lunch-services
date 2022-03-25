@@ -80,7 +80,6 @@ export default function CardTablePurchases({ color, data }) {
     return {
       id: purchase._id,
       purchaseId: purchase._id,
-      orderId: purchase.orderId,
       product: purchase.product.name,
       quantitySold: purchase.quantitySold,
       buyTime: purchase.updatedAt,
@@ -91,13 +90,6 @@ export default function CardTablePurchases({ color, data }) {
     {
       field: "purchaseId",
       headerName: "Purchase ID",
-      flex: 1,
-      align: "center",
-      headerAlign: "center",
-    },
-    {
-      field: "orderId",
-      headerName: "Order ID",
       flex: 1,
       align: "center",
       headerAlign: "center",
