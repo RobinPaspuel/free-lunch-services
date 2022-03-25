@@ -119,3 +119,5 @@ dist
 !.vscode/extensions.json
 
 db/
+
+docker-compose-prod.yml

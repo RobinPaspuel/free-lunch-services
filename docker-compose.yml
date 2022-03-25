@@ -20,13 +20,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./nginx
-    image: robinpas/nginx:v0.0.2
-    # depends_on:
-    #   - kitchen
-    #   - inventory
-    # links:
-    #   - "kitchen"
-    #   - "inventory"
     ports:
       - 80:80
     restart: always
@@ -36,15 +29,12 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./kitchen
-    image: robinpas/kitchen:v0.0.3
     ports:
       - 8000:8000
     depends_on:
       - mongodb
       - rabbitmq
       - nginx
-    # env_file:
-    #   - ./kitchen/.env.dev
     restart: always
 
   inventory:
@@ -52,25 +42,22 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./inventory
-    image: robinpas/inventory:v0.0.3
     ports:
       - 8001:8001
     depends_on:
       - nginx
       - mongodb
       - rabbitmq
-    # env_file:
-    #   - ./inventory/.env.dev
     restart: always
 
-  # client:
-  #   container_name: client
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./client
-  #   ports:
-  #     - 3000:3000
-  #   depends_on:
-  #     - kitchen
-  #     - inventory
-  #   restart: always
+  client:
+    container_name: client
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    ports:
+      - 3000:3000
+    depends_on:
+      - kitchen
+      - inventory
+    restart: always
