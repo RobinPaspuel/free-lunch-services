@@ -33,9 +33,9 @@ class KitchenRepository {
       required_qt,
     };
     try {
-      const recipe = await RecipeModel.findOne({ name: recipeName}).populate(
-        "ingredients"
-      ).exec();
+      const recipe = await RecipeModel.findOne({ name: recipeName })
+        .populate("ingredients")
+        .exec();
       if (recipe) {
         let ingredients = recipe.ingredients;
         if (ingredients.length > 0) {
@@ -67,6 +67,12 @@ class KitchenRepository {
     }
   }
 
+  async updateUsedTimes(recipe) {
+    return await RecipeModel.findByIdAndUpdate(recipe._id, {
+      $inc: { used_times: 1 },
+    });
+  }
+
   async createOrder({ serves_number, recipes }) {
     try {
       const order = new OrderModel({
@@ -83,11 +89,15 @@ class KitchenRepository {
   async getOrders(received, dispatched) {
     try {
       if (received && !dispatched) {
-        return await OrderModel.find({ status: "received" }).populate('recipes').exec();
+        return await OrderModel.find({ status: "received" })
+          .populate("recipes")
+          .exec();
       } else if (dispatched && !received) {
-        return await OrderModel.find({ status: "dispatched" }).populate('recipes').exec();
+        return await OrderModel.find({ status: "dispatched" })
+          .populate("recipes")
+          .exec();
       } else {
-        return await OrderModel.find().populate('recipes').exec();
+        return await OrderModel.find().populate("recipes").exec();
       }
     } catch (error) {
       console.log(error);

@@ -6,7 +6,7 @@ const RecipeSchema = new Schema(
   {
     name: String,
     used_times: { type: Number, default: 0 },
-    image: String,
+    image: {type: String, unique: true},
     ingredients: [
       {
         ingredient: {

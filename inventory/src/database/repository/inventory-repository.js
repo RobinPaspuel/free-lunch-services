@@ -49,7 +49,7 @@ class InventoryRepository {
 
   async incrementProductExistence(productId, existence) {
     try {
-      return await ProductModel.findByIdAndUpdate(productId, {
+      await ProductModel.findByIdAndUpdate(productId, {
         $inc: { existence: existence },
       });
       return ProductModel.findById(productId);
@@ -58,10 +58,10 @@ class InventoryRepository {
     }
   }
 
-  async decrementProductExistence(productId, existence) {
+  async decrementProductExistence(productId, requiredQuantity) {
     try {
       await ProductModel.findByIdAndUpdate(productId, {
-        $inc: { existence: -existence },
+        $inc: { existence: -requiredQuantity, used_times: requiredQuantity },
       });
       return ProductModel.findById(productId);
     } catch (error) {

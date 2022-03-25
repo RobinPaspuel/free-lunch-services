@@ -51,11 +51,11 @@ class InventoryService {
     }
   }
 
-  async decrementExistence(productId, existence) {
+  async decrementExistence(productId, requiredQuantity) {
     try {
       const productResult = await this.repository.decrementProductExistence(
         productId,
-        existence
+        requiredQuantity
       );
       return productResult.existence;
     } catch (error) {
@@ -129,21 +129,25 @@ class InventoryService {
   }
 
   async manageOrder(order) {
-    const recipes = order.recipes.map((recipe) => {
-      return recipe.ingredients;
-    });
-    await this.placeOrder(recipes, order._id);
-    const orderResult = await axios.put(
-      "http://nginx/kitchen/orders",
-      {},
-      {
-        params: {
-          orderId: order._id,
-        },
-      }
-    );
-    console.log(orderResult.data);
-    return formatData(orderResult.data);
+    try {
+      const recipes = order.recipes.map((recipe) => {
+        return recipe.ingredients;
+      });
+      await this.placeOrder(recipes, order._id);
+      const orderResult = await axios.put(
+        "http://nginx/kitchen/orders",
+        {},
+        {
+          params: {
+            orderId: order._id,
+          },
+        }
+      );
+      console.log(orderResult.data);
+      return formatData(orderResult.data);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async getProductPayload({ recipeName, required_qt, productName }, event) {

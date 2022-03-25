@@ -52,11 +52,20 @@ class KitchenService {
   async addOrder(serves_number) {
     try {
       const recipes = await this.getRandomRecipes(serves_number);
+      await this.updateUsedTimes(recipes);
       const orderResult = await this.repository.createOrder({
         serves_number,
         recipes,
       });
       return formatData(orderResult);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async updateUsedTimes(recipes) {
+    try {
+      recipes.map((recipe) => this.repository.updateUsedTimes(recipe));
     } catch (error) {
       console.log(error);
     }

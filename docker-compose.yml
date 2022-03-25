@@ -15,23 +15,36 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:15672" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    image: robinpas/nginx:v0.0.2
+    # depends_on:
+    #   - kitchen
+    #   - inventory
+    # links:
+    #   - "kitchen"
+    #   - "inventory"
+    ports:
+      - 80:80
+    restart: always
 
   kitchen:
     container_name: kitchen
     build:
       dockerfile: Dockerfile
       context: ./kitchen
-    # image: robinpas/kitchen:v0.0.1
+    image: robinpas/kitchen:v0.0.3
     ports:
       - 8000:8000
     depends_on:
       - mongodb
       - rabbitmq
+      - nginx
+    # env_file:
+    #   - ./kitchen/.env.dev
     restart: always
 
   inventory:
@@ -39,24 +52,25 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./inventory
-    # image: robinpas/inventory:v0.0.1
+    image: robinpas/inventory:v0.0.3
     ports:
       - 8001:8001
     depends_on:
+      - nginx
       - mongodb
       - rabbitmq
+    # env_file:
+    #   - ./inventory/.env.dev
     restart: always
 
-  nginx:
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
-    depends_on:
-      - kitchen
-      - inventory
-    links:
-      - "kitchen"
-      - "inventory"
-    # image: robinpas/nginx:v0.0.1
-    ports:
-      - 80:80
+  # client:
+  #   container_name: client
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./client
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - kitchen
+  #     - inventory
+  #   restart: always
