@@ -56,7 +56,7 @@ This will start the docker containers needed (MongoDB and RabbitMQ) and run the 
 To access to the RabbitMQ manager follow the link [`http://localhost:15672/`](http://localhost:15672/)
 
 - Username: guest
-- Passwork: guest
+- Password: guest
 
 The connection URL to MongoDB is `mongodb://localhost:27017`
 
