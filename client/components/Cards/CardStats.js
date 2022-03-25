@@ -38,8 +38,8 @@ export default function CardStats({
 }
 
 CardStats.defaultProps = {
-  statSubtitle: "Orders Served",
-  statTitle: "This is a test 2",
+  statSubtitle: "",
+  statTitle: "",
   statArrow: "up",
   statPercent: "3.48",
   statPercentColor: "text-emerald-500",
